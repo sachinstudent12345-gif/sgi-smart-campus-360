@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard | SGI Smart Campus 360</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #07111f;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        /* BACKGROUND */
+        body::before {
+            content: "";
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: #087f8c;
+            filter: blur(180px);
+            opacity: 0.18;
+            top: -150px;
+            right: -100px;
+            pointer-events: none;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            width: 450px;
+            height: 450px;
+            background: #304ffe;
+            filter: blur(180px);
+            opacity: 0.15;
+            bottom: -150px;
+            left: -100px;
+            pointer-events: none;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            height: 75px;
+            padding: 0 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(7, 17, 31, 0.85);
+            backdrop-filter: blur(15px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            background: linear-gradient(135deg, #62dfff, #75ffc8);
+            color: #06111d;
+        }
+
+        .brand-text strong {
+            display: block;
+            font-size: 16px;
+        }
+
+        .brand-text span {
+            font-size: 9px;
+            color: #8290a5;
+            letter-spacing: 1.5px;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-info {
+            text-align: right;
+        }
+
+        .profile-info strong {
+            display: block;
+            font-size: 14px;
+        }
+
+        .profile-info span {
+            font-size: 11px;
+            color: #8290a5;
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #62dfff, #75ffc8);
+            color: #06111d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* MAIN */
+        .container {
+            width: 88%;
+            max-width: 1400px;
+            margin: auto;
+            padding: 45px 0 60px;
+        }
+
+        .welcome {
+            margin-bottom: 35px;
+        }
+
+        .welcome-tag {
+            display: inline-block;
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: #75ffc8;
+            margin-bottom: 12px;
+        }
+
+        .welcome h1 {
+            font-size: clamp(30px, 4vw, 48px);
+            margin-bottom: 10px;
+        }
+
+        .welcome h1 span {
+            background: linear-gradient(90deg, #ffffff, #62dfff, #75ffc8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome p {
+            color: #8290a5;
+            font-size: 15px;
+        }
+
+        /* SYSTEM STATUS */
+        .system-bar {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(117, 255, 200, 0.15);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        .online-dot {
+            width: 9px;
+            height: 9px;
+            background: #75ffc8;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #75ffc8;
+        }
+
+        .system-bar span {
+            font-size: 13px;
+            color: #aeb9c8;
+        }
+
+        .offline {
+            margin-left: auto;
+            color: #62dfff !important;
+        }
+
+        /* QUICK STATS */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 35px;
+        }
+
+        .stat-card {
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.035);
+            transition: 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(98, 223, 255, 0.35);
+            background: rgba(255, 255, 255, 0.055);
+        }
+
+        .stat-icon {
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        .stat-card h3 {
+            font-size: 30px;
+            margin-bottom: 5px;
+        }
+
+        .stat-card p {
+            color: #8290a5;
+            font-size: 12px;
+        }
+
+        /* SECTION TITLE */
+        .section-title {
+            margin-bottom: 18px;
+        }
+
+        .section-title h2 {
+            font-size: 22px;
+        }
+
+        .section-title p {
+            color: #8290a5;
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        /* MODULE GRID */
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .module {
+            position: relative;
+            padding: 28px;
+            min-height: 210px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.035);
+            overflow: hidden;
+            cursor: pointer;
+            transition: 0.35s;
+        }
+
+        .module:hover {
+            transform: translateY(-7px);
+            border-color: rgba(98, 223, 255, 0.4);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.25);
+        }
+
+        .module-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            background: rgba(98, 223, 255, 0.1);
+            margin-bottom: 22px;
+        }
+
+        .module h3 {
+            font-size: 18px;
+            margin-bottom: 9px;
+        }
+
+        .module p {
+            color: #8290a5;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .module-link {
+            position: absolute;
+            bottom: 22px;
+            color: #62dfff;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* SPECIAL CARD */
+        .offline-card {
+            border-color: rgba(117, 255, 200, 0.18);
+        }
+
+        .offline-card .module-icon {
+            background: rgba(117, 255, 200, 0.1);
+        }
+
+        .offline-card .module-link {
+            color: #75ffc8;
+        }
+
+        /* RECENT ACTIVITY */
+        .activity {
+            margin-top: 40px;
+        }
+
+        .activity-box {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.035);
+        }
+
+        .activity-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 22px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .activity-row:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(98, 223, 255, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .activity-info {
+            flex: 1;
+        }
+
+        .activity-info strong {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .activity-info span {
+            color: #718096;
+            font-size: 11px;
+        }
+
+        .status {
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 10px;
+        }
+
+        .pending {
+            color: #ffd166;
+            background: rgba(255, 209, 102, 0.1);
+        }
+
+        .progress {
+            color: #62dfff;
+            background: rgba(98, 223, 255, 0.1);
+        }
+
+        /* FOOTER */
+        footer {
+            margin-top: 60px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.07);
+            display: flex;
+            justify-content: space-between;
+            color: #64748b;
+            font-size: 11px;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .module-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                padding: 0 20px;
+            }
+
+            .profile-info {
+                display: none;
+            }
+
+            .container {
+                width: 92%;
+                padding-top: 30px;
+            }
+
+            .stats,
+            .module-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .system-bar {
+                gap: 10px;
+            }
+
+            .offline {
+                display: none;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+        <div class="brand">
+           <div class="logo" onclick="handleLogoClick()">SGI</div>
+
+            <div class="brand-text">
+                <strong>SGI</strong>
+                <span>SMART CAMPUS 360</span>
+            </div>
+        </div>
+
+        <div class="profile">
+            <div class="profile-info">
+                <strong id="studentName">Student</strong>
+                <span>Campus ID: <span id="studentCampusId">SGI2026</span></span>
+            </div>
+            <div class="avatar">
+                S
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN -->
+    <main class="container">
+
+        <!-- WELCOME -->
+        <section class="welcome">
+
+            <span class="welcome-tag">
+                STUDENT PORTAL
+            </span>
+
+            <h1>
+                Welcome back,
+                <span id="welcomeStudentName">Student 👋</span>
+            </h1>
+            <p>
+                Your SGI campus activities, services and support —
+                all in one place.
+            </p>
+            <div style="margin-top: 15px; color: #8290a5; font-size: 13px;">
+                <span id="studentBranch">CSE</span>
+                <span style="margin: 0 8px;">•</span>
+                <span id="studentSemester">Semester 3</span>
+            </div>
+        </section>
+
+
+        <!-- SYSTEM STATUS -->
+        <div class="system-bar">
+
+            <span class="online-dot"></span>
+
+            <span>
+                Campus System <strong>Online</strong>
+            </span>
+
+            <span class="offline">
+                📡 Offline-First Enabled
+            </span>
+
+        </div>
+
+
+        <!-- STATS -->
+        <section class="stats">
+
+            <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <h3 id="attendance">82%</h3>
+                <p>Attendance</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">📝</div>
+                <h3 id="complaintCount">00</h3>
+                <p>My Complaints</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon">📢</div>
+                <h3>05</h3>
+                <p>New Notices</p>
+            </div>
+
+           <div class="stat-card">
+    <div class="stat-icon">💻</div>
+    <h3 id="labReportCount">00</h3>
+    <p>Lab Reports</p>
+</div>
+        </section>
+
+
+        <!-- CAMPUS SERVICES -->
+        <section>
+
+            <div class="section-title">
+                <h2>Campus Services</h2>
+
+                <p>
+                    Access important SGI services from one dashboard.
+                </p>
+            </div>
+
+
+            <div class="module-grid">
+
+                <!-- ATTENDANCE -->
+                <div class="module">
+
+                    <div class="module-icon">
+                        📊
+                    </div>
+
+                    <h3>My Attendance</h3>
+
+                    <p>
+                        Check your subject-wise attendance
+                        and attendance percentage.
+                    </p>
+
+                    <span class="module-link">
+                        View Attendance →
+                    </span>
+
+                </div>
+
+
+                <!-- COMPLAINT -->
+                <div class="module" onclick="window.location.href='complaints.html'">
+
+                    <div class="module-icon">
+                        📝
+                    </div>
+
+                    <h3>Smart Complaints</h3>
+
+                    <p>
+                        Report campus problems and track
+                        your complaint status.
+                    </p>
+
+                    <span class="module-link">
+                        Report Problem →
+                    </span>
+
+                </div>
+
+                <!-- LAB -->
+                <div class="module" onclick="window.location.href='lab.html'">
+
+                    <div class="module-icon">
+                        💻
+                    </div>
+
+                    <h3>Smart Lab</h3>
+
+                    <p>
+                        Report computer, network or equipment
+                        problems using your lab PC ID.
+                    </p>
+
+                    <span class="module-link">
+                        Report Lab Issue →
+                    </span>
+
+                </div>
+
+
+                <!-- HOSTEL -->
+               <div class="module" onclick="window.location.href='hostel.html'">
+
+                    <div class="module-icon">
+                        🏠
+                    </div>
+
+                    <h3>Hostel Care</h3>
+
+                    <p>
+                        Report food, cleaning, water,
+                        electricity and room issues.
+                    </p>
+
+                    <span class="module-link">
+                        Hostel Support →
+                    </span>
+
+                </div>
+
+
+                <!-- NOTICES -->
+               <div class="module" onclick="window.location.href='notices.html'">
+
+                    <div class="module-icon">
+                        📢
+                    </div>
+
+                    <h3>Campus Notices</h3>
+
+                    <p>
+                        Stay updated with important
+                        college announcements.
+                    </p>
+
+                    <span class="module-link">
+                        View Notices →
+                    </span>
+
+                </div>
+
+
+                <!-- OFFLINE -->
+                <div class="module offline-card">
+
+                    <div class="module-icon">
+                        📡
+                    </div>
+
+                    <h3>Offline Mode</h3>
+
+                    <p>
+                        Continue important campus operations
+                        even when the network is unavailable.
+                    </p>
+
+                    <span class="module-link">
+                        System Ready ✓
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RECENT ACTIVITY -->
+        <section class="activity">
+
+            <div class="section-title">
+
+                <h2>Recent Activity</h2>
+
+                <p>
+                    Your latest campus activity.
+                </p>
+
+            </div>
+
+
+            <div class="activity-box">
+
+                <div class="activity-row">
+
+                    <div class="activity-icon">
+                        📝
+                    </div>
+
+                    <div class="activity-info">
+
+                        <strong>
+                            Room cleaning request submitted
+                        </strong>
+
+                        <span>
+                            Hostel Block A • Today
+                        </span>
+
+                    </div>
+
+                    <span class="status pending">
+                        Pending
+                    </span>
+
+                </div>
+
+
+                <div class="activity-row">
+
+                    <div class="activity-icon">
+                        💻
+                    </div>
+
+                    <div class="activity-info">
+
+                        <strong>
+                            Lab network issue reported
+                        </strong>
+
+                        <span>
+                            Computer Lab • Yesterday
+                        </span>
+
+                    </div>
+
+                    <span class="status progress">
+                        In Progress
+                    </span>
+
+                </div>
+
+
+                <div class="activity-row">
+
+                    <div class="activity-icon">
+                        📢
+                    </div>
+
+                    <div class="activity-info">
+
+                        <strong>
+                            New campus notice published
+                        </strong>
+
+                        <span>
+                            Administration • 2 days ago
+                        </span>
+
+                    </div>
+
+                    <span class="status progress">
+                        New
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer>
+
+            <span>
+                SGI Smart Campus 360
+            </span>
+
+            <span>
+                Student Innovation Project • 2026
+            </span>
+
+        </footer>
+
+    </main>
+    <script>
+        const studentData = localStorage.getItem("student");
+
+        // Login nahi hai → Home page
+        if (!studentData) {
+            window.location.href = "/";
+        } else {
+
+            const student = JSON.parse(studentData);
+
+            console.log("Logged in student:", student);
+
+            // Student Name
+            const nameElement = document.querySelector("#studentName");
+
+            if (nameElement) {
+                nameElement.textContent = student.name;
+            }
+            // Welcome Student Name
+            const welcomeNameElement =
+                document.querySelector("#welcomeStudentName");
+
+            if (welcomeNameElement) {
+                welcomeNameElement.textContent =
+                    student.name + " 👋";
+            }
+            // Campus ID
+            const campusIdElement =
+                document.querySelector("#studentCampusId");
+
+            if (campusIdElement) {
+                campusIdElement.textContent =
+                    student.campus_id;
+            }
+            // Attendance
+            const attendanceElement =
+                document.querySelector("#attendance");
+
+            if (attendanceElement) {
+                attendanceElement.textContent =
+                    student.attendance + "%";
+            }
+            // Complaint Count
+            const complaintCountElement =
+                document.querySelector("#complaintCount");
+
+            if (complaintCountElement) {
+                fetch(`/api/complaints/${student.campus_id}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        complaintCountElement.textContent =
+                           String(data.complaints.length).padStart(2, "0");
+                    })
+                    .catch(error => {
+                        console.error("Complaint count error:", error);
+                    });
+            }
+            // Lab Report Count
+const labReportCountElement =
+    document.querySelector("#labReportCount");
+
+if (labReportCountElement) {
+
+    fetch(`/api/lab-reports/${student.campus_id}`)
+        .then(response => response.json())
+        .then(data => {
+
+            labReportCountElement.textContent =
+                String(data.reports.length).padStart(2, "0");
+
+        })
+        .catch(error => {
+
+            console.error("Lab report count error:", error);
+
+        });
+}
+            // Branch
+            const branchElement =
+                document.querySelector("#studentBranch");
+
+            if (branchElement) {
+                branchElement.textContent =
+                    student.branch;
+            }
+
+            // Semester
+            const semesterElement =
+                document.querySelector("#studentSemester");
+
+            if (semesterElement) {
+                semesterElement.textContent =
+                    "Semester " + student.semester;
+            }
+        }
+        // ==========================================
+// SGI LOGO - HOME / SIGN OUT HANDLER
+// ==========================================
+
+function handleLogoClick() {
+
+    const choice = confirm(
+        "You are currently signed in.\n\n" +
+        "Press OK to stay signed in and go to Home.\n" +
+        "Press Cancel to remain on Dashboard."
+    );
+
+    if (choice) {
+        window.location.href = "/";
+    }
+}
+    </script>

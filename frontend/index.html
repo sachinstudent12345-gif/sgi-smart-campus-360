@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>SGI Smart Campus 360</title>
+
+    <meta
+        name="description"
+        content="SGI Smart Campus 360 - A digital campus operations platform for Shekhawati Group of Institutions."
+    >
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+    <!-- BACKGROUND -->
+
+    <div class="background">
+
+        <div class="orb orb-1"></div>
+
+        <div class="orb orb-2"></div>
+
+        <div class="grid"></div>
+
+    </div>
+
+
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <div class="brand">
+
+            <div class="sgi-logo">
+                <span>SGI</span>
+            </div>
+
+            <div class="brand-text">
+
+                <strong>SGI</strong>
+
+                <span>SMART CAMPUS 360</span>
+
+            </div>
+
+        </div>
+
+
+        <nav class="nav-links">
+
+            <a href="#home">
+                Home
+            </a>
+
+            <a href="#features">
+                Features
+            </a>
+
+            <a href="#campus">
+                Campus
+            </a>
+
+            <a href="#contact">
+    Contact Us
+</a>
+            <a href="#about">
+                About
+            </a>
+
+        </nav>
+
+
+        <!-- LOGIN BUTTONS -->
+
+        <div class="login-buttons">
+
+            <button
+                class="admin-login-btn"
+                onclick="openAdminLogin()"
+            >
+                🔐 Admin Login
+            </button>
+
+
+            <button
+                class="login-btn"
+                onclick="openLogin()"
+            >
+                Student Login
+            </button>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- HERO -->
+
+    <main id="home">
+
+        <section class="hero">
+
+
+            <div class="hero-content">
+
+
+                <div class="innovation-badge">
+
+                    <span class="pulse"></span>
+
+                    SGI INNOVATION PROJECT 2026
+
+                </div>
+
+
+
+                <h1>
+
+                    Welcome to
+
+                    <span>
+                        SGI Smart Campus 360
+                    </span>
+
+                </h1>
+
+
+
+                <p class="hero-description">
+
+                    One digital platform connecting students, faculty,
+                    laboratories, hostels and campus operations —
+                    designed specifically for SGI.
+
+                </p>
+
+
+
+                <div class="hero-buttons">
+
+                    <button
+                        class="primary-btn"
+                        onclick="openLogin()"
+                    >
+
+                        Enter Smart Campus
+
+                        <span>
+                            →
+                        </span>
+
+                    </button>
+
+
+                    <a
+                        href="#features"
+                        class="secondary-btn"
+                    >
+                        Explore Features
+                    </a>
+
+                </div>
+
+
+
+                <!-- SYSTEM STATUS -->
+
+                <div class="system-status">
+
+
+                    <div class="status-item">
+
+                        <span class="status-dot"></span>
+
+                        <div>
+
+                            <small>
+                                Campus System
+                            </small>
+
+                            <strong>
+                                ONLINE
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="status-line"></div>
+
+
+                    <div class="status-item">
+
+                        <span class="offline-icon">
+                            ◉
+                        </span>
+
+                        <div>
+
+                            <small>
+                                Network Protection
+                            </small>
+
+                            <strong>
+                                OFFLINE-FIRST
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CAMPUS VISUAL -->
+
+            <div class="hero-visual">
+
+
+                <div class="campus-card">
+
+
+                    <!-- HERO IMAGE SLIDER -->
+
+                    <div class="hero-slider">
+
+                        <img
+                          src="assets/sgi campus 2.jpg"
+                            class="hero-slide active"
+                            alt="SGI Campus"
+                        >
+
+                        <img
+                            src="assets/ranjit sir.jpg"
+                            class="hero-slide"
+                            alt="SGI NCC"
+                        >
+
+                        <img
+                            src="assets/staff.jpg"
+                            class="hero-slide"
+                            alt="SGI Laboratory"
+                        >
+
+                        <img
+                           src="assets/vyas.jpg"
+                            class="hero-slide"
+                            alt="SGI Management"
+                        >
+
+                    </div>
+
+
+                    <div class="image-overlay"></div>
+
+
+
+                    <!-- FLOATING CAMPUS INFO -->
+
+                    <div class="campus-label">
+
+                        <span class="location-dot"></span>
+
+                        <div>
+
+                            <small>
+                                LIVE CAMPUS
+                            </small>
+
+                            <strong>
+                                SGI SIKAR
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="campus-scan">
+
+                        <span class="scan-line"></span>
+
+                        <div class="scan-content">
+
+                            <span>
+                                ●
+                            </span>
+
+                            CAMPUS CONNECTED
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FLOATING STAT CARD -->
+
+                <div class="floating-stat">
+
+                    <div class="stat-icon">
+                        ⚡
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            360°
+                        </strong>
+
+                        <span>
+                            Campus Management
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- QUICK STATS -->
+
+        <section class="stats-section">
+
+
+            <div class="stat-card">
+
+                <span class="stat-number">
+                    24
+                </span>
+
+                <span class="stat-label">
+                    Active Complaints
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-number">
+                    08
+                </span>
+
+                <span class="stat-label">
+                    Lab Issues
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-number">
+                    06
+                </span>
+
+                <span class="stat-label">
+                    Hostel Issues
+                </span>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <span class="stat-number green">
+                    98%
+                </span>
+
+                <span class="stat-label">
+                    System Availability
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- FEATURES -->
+
+        <section
+            id="features"
+            class="section"
+        >
+
+
+            <div class="section-heading">
+
+                <span>
+                    SMART CAMPUS ECOSYSTEM
+                </span>
+
+                <h2>
+
+                    Everything SGI needs.
+
+                    <strong>
+                        One platform.
+                    </strong>
+
+                </h2>
+
+                <p>
+
+                    Real campus problems transformed into
+                    digital solutions.
+
+                </p>
+
+            </div>
+
+
+
+            <div class="feature-grid">
+
+
+                <div
+                    class="feature-card"
+                    onclick="openLogin()"
+                >
+
+                    <div class="feature-icon">
+                        📝
+                    </div>
+
+                    <h3>
+                        Smart Complaints
+                    </h3>
+
+                    <p>
+
+                        Students can report campus problems
+                        and track their status in real time.
+
+                    </p>
+
+                    <span class="feature-link">
+                        Report & Track →
+                    </span>
+
+                </div>
+
+
+
+                <div
+                    class="feature-card"
+                    onclick="openLogin()"
+                >
+
+                    <div class="feature-icon">
+                        💻
+                    </div>
+
+                    <h3>
+                        Smart Lab
+                    </h3>
+
+                    <p>
+
+                        Every lab computer gets a unique ID
+                        and QR-based issue reporting.
+
+                    </p>
+
+                    <span class="feature-link">
+                        Scan & Report →
+                    </span>
+
+                </div>
+
+
+
+                <div
+                    class="feature-card"
+                    onclick="openLogin()"
+                >
+
+                    <div class="feature-icon">
+                        🏠
+                    </div>
+
+                    <h3>
+                        Hostel Care
+                    </h3>
+
+                    <p>
+
+                        Food, cleaning, electricity and room
+                        problems can be digitally managed.
+
+                    </p>
+
+                    <span class="feature-link">
+                        Hostel Support →
+                    </span>
+
+                </div>
+
+
+
+                <div
+                    class="feature-card"
+                    onclick="openLogin()"
+                >
+
+                    <div class="feature-icon">
+                        📊
+                    </div>
+
+                    <h3>
+                        Campus Analytics
+                    </h3>
+
+                    <p>
+
+                        Understand recurring campus problems
+                        through live statistics and insights.
+
+                    </p>
+
+                    <span class="feature-link">
+                        View Analytics →
+                    </span>
+
+                </div>
+
+
+
+                <div
+                    class="feature-card highlight-card"
+                    onclick="openLogin()"
+                >
+
+                    <div class="feature-icon">
+                        📡
+                    </div>
+
+                    <h3>
+                        Offline-First
+                    </h3>
+
+                    <p>
+
+                        Important campus operations can
+                        continue even during network problems.
+
+                    </p>
+
+                    <span class="feature-link">
+                        Built for SGI →
+                    </span>
+
+                </div>
+
+
+
+                <div
+                    class="feature-card"
+                    onclick="openLogin()"
+                >
+
+                    <div class="feature-icon">
+                        🤖
+                    </div>
+
+                    <h3>
+                        AI Assistance
+                    </h3>
+
+                    <p>
+
+                        Automatically classify complaints
+                        and identify recurring campus issues.
+
+                    </p>
+
+                    <span class="feature-link">
+                        AI Powered →
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+<!-- CAMPUS SECTION -->
+
+<section
+    id="campus"
+    class="campus-section"
+>
+<div class="campus-image">
+
+    <img
+        src="assets/sgi-campus.jpg"
+        class="campus-slide active"
+        alt="SGI Campus"
+    >
+
+    <img
+        src="assets/ncc.jpg"
+        class="campus-slide"
+        alt="SGI NCC"
+    >
+
+    <img
+        src="assets/manage.jpg"
+        class="campus-slide"
+        alt="SGI Management"
+    >
+
+    <img
+        src="assets/lab.jpg"
+        class="campus-slide"
+        alt="SGI Laboratory"
+    >
+
+    <div class="campus-image-overlay"></div>
+
+</div>
+
+    <div class="campus-content">
+
+        <span class="campus-tag">
+            YOUR CAMPUS. DIGITALLY CONNECTED.
+        </span>
+
+
+        <h2>
+            From physical campus
+            <br>
+            to
+            <strong>
+                digital campus.
+            </strong>
+        </h2>
+
+
+        <p>
+            SGI Smart Campus 360 is designed around the real
+            day-to-day problems faced by students, faculty
+            and campus staff.
+        </p>
+
+
+        <div class="campus-points">
+
+
+            <div class="campus-point">
+
+                <span class="campus-point-number">
+                    01
+                </span>
+
+                <div>
+
+                    <strong>
+                        Student Experience
+                    </strong>
+
+                    <p>
+                        Simple digital access to campus services,
+                        complaints and important information.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="campus-point">
+
+                <span class="campus-point-number">
+                    02
+                </span>
+
+                <div>
+
+                    <strong>
+                        Lab Operations
+                    </strong>
+
+                    <p>
+                        Faster reporting and management of
+                        laboratory issues.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="campus-point">
+
+                <span class="campus-point-number">
+                    03
+                </span>
+
+                <div>
+
+                    <strong>
+                        Hostel Management
+                    </strong>
+
+                    <p>
+                        Digital handling of hostel complaints
+                        and student requests.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ACTIVITY -->
+        <!-- ACTIVITY -->
+
+        <section class="<!-- CAMPUS SECTION -->activity-section">
+
+
+            <div class="section-heading left">
+
+                <span>
+                    LIVE CAMPUS ACTIVITY
+                </span>
+
+                <h2>
+
+                    What's happening
+
+                    <strong>
+                        right now?
+                    </strong>
+
+                </h2>
+
+            </div>
+
+
+
+            <div class="activity-panel">
+
+
+                <div class="activity-row">
+
+                    <div class="activity-icon lab">
+                        💻
+                    </div>
+
+                    <div class="activity-info">
+
+                        <strong>
+                            PC-27 Network Issue
+                        </strong>
+
+                        <span>
+                            Computer Lab • 2 min ago
+                        </span>
+
+                    </div>
+
+                    <span class="activity-status pending">
+                        Pending
+                    </span>
+
+                </div>
+
+
+
+                <div class="activity-row">
+
+                    <div class="activity-icon hostel">
+                        🏠
+                    </div>
+
+                    <div class="activity-info">
+
+                        <strong>
+                            Room Cleaning Request
+                        </strong>
+
+                        <span>
+                            Hostel Block A • 12 min ago
+                        </span>
+
+                    </div>
+
+                    <span class="activity-status progress">
+                        In Progress
+                    </span>
+
+                </div>
+
+
+
+                <div class="activity-row">
+
+                    <div class="activity-icon notice">
+                        📢
+                    </div>
+
+                    <div class="activity-info">
+
+                        <strong>
+                            New Campus Notice
+                        </strong>
+
+                        <span>
+                            Administration • 25 min ago
+                        </span>
+
+                    </div>
+
+                    <span class="activity-status resolved">
+                        Published
+                    </span>
+
+                </div>
+
+            </div>
+
+    
+
+        <!-- ABOUT -->
+
+        <section
+            id="about"
+            class="about-section"
+        >
+
+            <div class="about-content">
+
+                <span class="section-tag">
+                    BUILT FOR SGI
+                </span>
+
+                <h2>
+
+                    Technology that solves
+
+                    <span>
+                        real campus problems.
+                    </span>
+
+                </h2>
+
+                <p>
+
+                    SGI Smart Campus 360 is a student-built
+                    digital platform created to make campus
+                    operations simpler, faster and more transparent.
+
+                </p>
+
+                <div class="about-badges">
+
+                    <span>
+                        ⚡ Fast
+                    </span>
+
+                    <span>
+                        📡 Offline-First
+                    </span>
+
+                    <span>
+                        🤖 AI Ready
+                    </span>
+
+                    <span>
+                        🔐 Secure
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div>
+
+            <strong>
+                SGI SMART CAMPUS 360
+            </strong>
+
+            <span>
+                Student Innovation Project • 2026
+            </span>
+
+        </div>
+
+        <div>
+            Shekhawati Group of Institutions • Sikar
+        </div>
+
+    </footer>
+
+
+
+    <!-- LOGIN MODAL -->
+
+    <div
+        id="loginModal"
+        class="modal"
+    >
+
+        <div class="modal-box">
+
+
+            <button
+                class="close-btn"
+                onclick="closeLogin()"
+            >
+                ×
+            </button>
+
+
+            <div class="modal-logo">
+                SGI
+            </div>
+
+
+            <span class="modal-tag">
+                SMART CAMPUS 360
+            </span>
+
+
+            <h2>
+                Welcome Back
+            </h2>
+
+
+            <p>
+                Enter your campus credentials to continue.
+            </p>
+
+
+            <form>
+
+
+                <label>
+                    Student / Faculty ID
+                </label>
+
+                <input
+                    type="text"
+                    id="loginCampusId"
+                    placeholder="Enter your ID"
+                >
+
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Enter password"
+                >
+
+
+                <button
+                    type="button"
+                    class="primary-btn login-submit"
+                    onclick="demoLogin()"
+                >
+
+                    Continue
+
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+
+                <div class="register-link">
+
+                    New student?
+
+                    <button
+                        type="button"
+                        onclick="openRegister()"
+                    >
+                        Create Account
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <small class="demo-note">
+                Demo interface • Backend authentication coming next
+            </small>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- REGISTRATION MODAL -->
+
+    <div
+        id="registerModal"
+        class="modal"
+    >
+
+        <div class="modal-box">
+
+
+            <button
+                class="close-btn"
+                onclick="closeRegister()"
+            >
+                ×
+            </button>
+
+
+            <div class="modal-logo">
+                SGI
+            </div>
+
+
+            <span class="modal-tag">
+                SMART CAMPUS 360
+            </span>
+
+
+            <h2>
+                Create Account
+            </h2>
+
+
+            <p>
+                Register your student account to access the campus.
+            </p>
+
+
+            <form>
+
+
+                <label>
+                    Full Name
+                </label>
+
+                <input
+                    type="text"
+                    id="registerName"
+                    placeholder="Enter your full name"
+                >
+
+
+                <label>
+                    Campus ID
+                </label>
+
+                <input
+                    type="text"
+                    id="registerCampusId"
+                    placeholder="Enter your campus ID"
+                >
+
+
+                <label>
+                    Branch
+                </label>
+
+                <select id="registerBranch">
+
+                    <option value="">
+                        Select Branch
+                    </option>
+
+                    <option value="CSE">
+                        Computer Science Engineering
+                    </option>
+
+                    <option value="ECE">
+                        Electronics & Communication
+                    </option>
+
+                    <option value="ME">
+                        Mechanical Engineering
+                    </option>
+
+                    <option value="CE">
+                        Civil Engineering
+                    </option>
+
+                </select>
+
+
+                <label>
+                    Semester
+                </label>
+
+                <select id="registerSemester">
+
+                    <option value="">
+                        Select Semester
+                    </option>
+
+                    <option value="1">
+                        Semester 1
+                    </option>
+
+                    <option value="2">
+                        Semester 2
+                    </option>
+
+                    <option value="3">
+                        Semester 3
+                    </option>
+
+                    <option value="4">
+                        Semester 4
+                    </option>
+
+                    <option value="5">
+                        Semester 5
+                    </option>
+
+                    <option value="6">
+                        Semester 6
+                    </option>
+
+                    <option value="7">
+                        Semester 7
+                    </option>
+
+                    <option value="8">
+                        Semester 8
+                    </option>
+
+                </select>
+
+
+                <label>
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="registerPassword"
+                    placeholder="Create a password"
+                >
+
+
+                <button
+                    type="button"
+                    class="primary-btn"
+                    onclick="registerStudent()"
+                >
+
+                    Create Account
+
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- DEVELOPERS SECTION -->
+
+    <section class="developers-section">
+
+
+        <div class="developers-glow glow-one"></div>
+
+        <div class="developers-glow glow-two"></div>
+
+
+        <div class="developers-heading">
+
+            <span class="developers-label">
+                MEET THE DEVELOPERS
+            </span>
+
+            <h2>
+
+                The Minds Behind
+
+                <span>
+                    SGI Smart Campus 360
+                </span>
+
+            </h2>
+
+            <p>
+
+                Two brothers with one vision —
+                making campus life smarter, simpler and more connected.
+
+            </p>
+
+        </div>
+
+
+
+  <div class="developers-container">
+
+<!-- 1. CHAIRMAN -->
+
+<!-- ER. RANJEET SINGH -->
+<div class="developer-card">
+
+    <div class="developer-image-box">
+        <img
+            src="assets/ranjit sir 2.jpg"
+            alt="Er. Ranjeet Singh"
+        >
+    </div>
+
+    <div class="developer-role">
+        CHAIRMAN
+    </div>
+
+    <h3>
+        ER. RANJEET
+        <span>SINGH</span>
+    </h3>
+
+    <p class="developer-description">
+        Chairman of Shekhawati Group of Institutions.
+    </p>
+
+    <div class="developer-line"></div>
+
+</div>
+
+
+<!-- 2. DIRECTOR -->
+
+<!-- DR. K.K. VYAS -->
+<div class="developer-card">
+
+    <div class="developer-image-box">
+        <img
+            src="assets/vyas sir.jpg"
+            alt="Dr. K.K. Vyas"
+        >
+    </div>
+
+    <div class="developer-role">
+        DIRECTOR
+    </div>
+
+    <h3>
+        DR. K.K.
+        <span>VYAS</span>
+    </h3>
+
+    <p class="developer-description">
+        Director of Shekhawati Group of Institutions.
+    </p>
+
+    <div class="developer-line"></div>
+
+</div>
+
+
+<!-- 3. PRINCIPAL -->
+
+<!-- DR. SURJEET KUMAR -->
+<div class="developer-card">
+
+    <div class="developer-image-box">
+        <img
+            src="assets/surjit sir.jpg"
+            alt="Dr. Surjeet Kumar"
+        >
+    </div>
+
+    <div class="developer-role">
+        PRINCIPAL
+    </div>
+
+    <h3>
+        DR. SURJEET
+        <span>KUMAR</span>
+    </h3>
+
+    <p class="developer-description">
+        Principal of Shekhawati Group of Institutions.
+    </p>
+
+    <div class="developer-line"></div>
+
+</div>
+
+
+<!-- 4. ACADEMIC DEAN -->
+
+<!-- MR. MANISH MATHUR -->
+<div class="developer-card">
+
+    <div class="developer-image-box">
+        <img
+            src="assets/manish mathur.jpg"
+            alt="Mr. Manish Mathur"
+        >
+    </div>
+
+    <div class="developer-role">
+        ACADEMIC DEAN
+    </div>
+
+    <h3>
+        MR. MANISH
+        <span>MATHUR</span>
+    </h3>
+
+    <p class="developer-description">
+        Academic Dean of Shekhawati Group of Institutions.
+    </p>
+
+    <div class="developer-line"></div>
+
+</div>
+
+
+
+        <div class="developers-footer">
+
+            <div class="footer-line"></div>
+
+            <span>
+                TWO BROTHERS
+            </span>
+
+            <b>
+                •
+            </b>
+
+            <span>
+                ONE VISION
+            </span>
+
+            <div class="footer-line"></div>
+
+        </div>
+
+<!-- DEVELOPERS PHOTOS -->
+
+<div class="developers-mini">
+
+    <div class="developer-mini-card">
+
+        <img
+            src="assets/sachin.jpg"
+            alt="Sachin Titaniya"
+        >
+
+        <span>SACHIN</span>
+
+    </div>
+
+
+    <div class="developer-mini-card">
+
+        <img
+            src="assets/brother.jpg"
+            alt="Sunil Titaniya"
+        >
+
+        <span>SUNIL</span>
+
+    </div>
+
+</div>
+<!-- CONTACT US -->
+
+<section
+    id="contact"
+    class="contact-section"
+>
+
+    <div class="contact-heading">
+
+        <span class="contact-label">
+            GET IN TOUCH
+        </span>
+
+        <h2>
+            Contact
+            <span>Us</span>
+        </h2>
+
+        <p>
+            Connect with us for ideas, queries and smart campus solutions.
+        </p>
+
+    </div>
+
+
+    <div class="contact-container">
+
+
+        <!-- EMAIL 1 -->
+
+        <a
+            href="mailto:sachinkumartitaniya@gmail.com"
+            class="contact-card"
+        >
+
+            <div class="contact-icon">
+                ✉
+            </div>
+
+            <div class="contact-info">
+                <span>EMAIL</span>
+                <strong>
+                    sachinkumartitaniya@gmail.com
+                </strong>
+            </div>
+
+        </a>
+
+
+        <!-- EMAIL 2 -->
+
+        <a
+            href="mailto:suniltitaniya007@gmail.com"
+            class="contact-card"
+        >
+
+            <div class="contact-icon">
+                ✉
+            </div>
+
+            <div class="contact-info">
+                <span>EMAIL</span>
+                <strong>
+                    suniltitaniya007@gmail.com
+                </strong>
+            </div>
+
+        </a>
+
+
+        <!-- PHONE -->
+
+        <a
+            href="tel:9875780528"
+            class="contact-card"
+        >
+
+            <div class="contact-icon">
+                ☎
+            </div>
+
+            <div class="contact-info">
+                <span>PHONE</span>
+                <strong>
+                    9875780528
+                </strong>
+            </div>
+
+        </a>
+
+
+        <!-- INSTAGRAM 1 -->
+
+        <a
+            href="https://instagram.com/theentelechy_"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-card"
+        >
+
+            <div class="contact-icon">
+                ◎
+            </div>
+
+            <div class="contact-info">
+                <span>INSTAGRAM</span>
+                <strong>
+                    @theentelechy_
+                </strong>
+            </div>
+
+        </a>
+
+
+        <!-- INSTAGRAM 2 -->
+
+        <a
+            href="https://instagram.com/sunil.hanumangarh"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="contact-card"
+        >
+
+            <div class="contact-icon">
+                ◎
+            </div>
+
+            <div class="contact-info">
+                <span>INSTAGRAM</span>
+                <strong>
+                    @sunil.hanumangarh
+                </strong>
+            </div>
+
+        </a>
+
+
+    </div>
+
+</section>
+        <div class="developers-tagline">
+
+            <strong>
+                Built with ❤️
+            </strong>
+
+            <br>
+
+            for a smarter campus
+
+        </div>
+
+    </section>
+
+<!-- CONTACT DIVIDER -->
+
+<div class="contact-divider">
+
+    <span></span>
+
+    <b>◆</b>
+
+    <span></span>
+
+</div>
+
+    <!-- ADMIN LOGIN MODAL -->
+
+    <div
+        id="adminLoginModal"
+        class="admin-modal"
+    >
+
+        <div class="admin-modal-box">
+
+
+            <button
+                class="admin-close"
+                onclick="closeAdminLogin()"
+            >
+                ×
+            </button>
+
+
+            <div class="admin-icon">
+                🔐
+            </div>
+
+
+            <h2>
+                ADMIN LOGIN
+            </h2>
+
+
+            <p>
+                SGI Smart Campus 360
+            </p>
+
+
+            <input
+                type="text"
+                id="adminId"
+                placeholder="Admin ID"
+            >
+
+
+            <input
+                type="password"
+                id="adminPassword"
+                placeholder="Password"
+            >
+
+
+            <button
+                class="admin-submit-btn"
+                onclick="adminLogin()"
+            >
+                LOGIN AS ADMIN
+            </button>
+
+
+            <div id="adminLoginMessage"></div>
+
+        </div>
+
+    </div>
+
+
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>

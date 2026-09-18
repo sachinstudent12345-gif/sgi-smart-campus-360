@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hostel Care | SGI Smart Campus 360</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        .hostel-page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: #8290a5;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 25px;
+            padding: 10px 18px;
+            border: 1px solid rgba(0, 212, 255, 0.25);
+            border-radius: 10px;
+            color: #00d4ff;
+            text-decoration: none;
+            background: rgba(0, 212, 255, 0.06);
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(0, 212, 255, 0.12);
+            transform: translateX(-3px);
+        }
+
+        .hostel-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .hostel-card {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            border-radius: 18px;
+            padding: 25px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.18);
+        }
+
+        .hostel-card h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 21px;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            background: rgba(2, 6, 23, 0.65);
+            color: #ffffff;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #00d4ff;
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.08);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 11px;
+            background: linear-gradient(135deg, #00d4ff, #2563eb);
+            color: white;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 212, 255, 0.2);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .message-box {
+            display: none;
+            margin-bottom: 18px;
+            padding: 13px 15px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .success-message {
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.25);
+            color: #4ade80;
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            color: #f87171;
+        }
+
+        .complaint-item {
+            padding: 18px;
+            margin-bottom: 14px;
+            border-radius: 13px;
+            background: rgba(2, 6, 23, 0.5);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .complaint-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .complaint-category {
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .status-pending {
+            background: rgba(245, 158, 11, 0.12);
+            color: #fbbf24;
+        }
+
+        .status-progress {
+            background: rgba(59, 130, 246, 0.12);
+            color: #60a5fa;
+        }
+
+        .status-resolved {
+            background: rgba(34, 197, 94, 0.12);
+            color: #4ade80;
+        }
+
+        .complaint-description {
+            color: #aab4c3;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .complaint-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .meta-tag {
+            padding: 5px 9px;
+            border-radius: 7px;
+            background: rgba(148, 163, 184, 0.08);
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        .empty-state,
+        .loading {
+            text-align: center;
+            padding: 45px 15px;
+            color: #718096;
+        }
+
+        @media (max-width: 800px) {
+            .hostel-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .page-header h1 {
+                font-size: 27px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <nav class="navbar">
+
+        <div class="nav-left">
+            <strong>SGI</strong>
+            <span>Smart Campus 360</span>
+        </div>
+
+        <div class="profile-info">
+
+            <strong id="studentName">
+                Student
+            </strong>
+
+            <span>
+                Campus ID:
+                <span id="studentCampusId">
+                    ---
+                </span>
+            </span>
+
+        </div>
+
+    </nav>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="hostel-page">
+
+        <a href="dashboard.html" class="back-btn">
+            ← Back to Dashboard
+        </a>
+
+
+        <div class="page-header">
+
+            <h1>
+                Hostel Care 🏠
+            </h1>
+
+            <p>
+                Report hostel-related issues and track your complaint status.
+            </p>
+
+        </div>
+
+
+        <div class="hostel-grid">
+
+
+            <!-- SUBMIT COMPLAINT -->
+
+            <section class="hostel-card">
+
+                <h2>
+                    Submit Hostel Complaint
+                </h2>
+
+
+                <div
+                    id="successMessage"
+                    class="message-box success-message">
+                </div>
+
+
+                <div
+                    id="errorMessage"
+                    class="message-box error-message">
+                </div>
+
+
+                <form id="hostelForm">
+
+
+                    <!-- CATEGORY -->
+
+                    <div class="form-group">
+
+                        <label for="category">
+                            Complaint Category
+                        </label>
+
+                        <select
+                            id="category"
+                            required>
+
+                            <option value="">
+                                Select category
+                            </option>
+
+                            <option value="Electricity">
+                                Electricity
+                            </option>
+
+                            <option value="Water">
+                                Water Supply
+                            </option>
+
+                            <option value="Cleanliness">
+                                Cleanliness
+                            </option>
+
+                            <option value="Room Maintenance">
+                                Room Maintenance
+                            </option>
+
+                            <option value="Food">
+                                Food / Mess
+                            </option>
+
+                            <option value="WiFi">
+                                WiFi / Internet
+                            </option>
+
+                            <option value="Furniture">
+                                Furniture
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- ROOM NUMBER -->
+
+                    <div class="form-group">
+
+                        <label for="roomNo">
+                            Room Number
+                        </label>
+
+                        <input
+                            type="text"
+                            id="roomNo"
+                            placeholder="Example: B-204"
+                            required>
+
+                    </div>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="form-group">
+
+                        <label for="description">
+                            Problem Description
+                        </label>
+
+                        <textarea
+                            id="description"
+                            placeholder="Describe your hostel issue..."
+                            required></textarea>
+
+                    </div>
+
+
+                    <!-- SUBMIT BUTTON -->
+
+                    <button
+                        type="submit"
+                        class="submit-btn"
+                        id="submitBtn">
+
+                        Submit Hostel Complaint 🚀
+
+                    </button>
+
+                </form>
+
+            </section>
+
+
+            <!-- HISTORY -->
+
+            <section class="hostel-card">
+
+                <h2>
+                    My Hostel Complaints
+                </h2>
+
+
+                <div id="complaintsList">
+
+                    <div class="loading">
+                        Loading complaints...
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        // ==========================================
+        // CHECK LOGIN
+        // ==========================================
+
+        const studentData =
+            localStorage.getItem("student");
+
+
+        if (!studentData) {
+
+            window.location.href = "/";
+
+        }
+
+
+        const student =
+            JSON.parse(studentData);
+
+
+        console.log(
+            "Logged in student:",
+            student
+        );
+
+
+        // ==========================================
+        // STUDENT INFORMATION
+        // ==========================================
+
+        document.getElementById(
+            "studentName"
+        ).textContent =
+            student.name;
+
+
+        document.getElementById(
+            "studentCampusId"
+        ).textContent =
+            student.campus_id;
+
+
+        // ==========================================
+        // ELEMENTS
+        // ==========================================
+
+        const form =
+            document.getElementById(
+                "hostelForm"
+            );
+
+
+        const submitBtn =
+            document.getElementById(
+                "submitBtn"
+            );
+
+
+        const complaintsList =
+            document.getElementById(
+                "complaintsList"
+            );
+
+
+        const successMessage =
+            document.getElementById(
+                "successMessage"
+            );
+
+
+        const errorMessage =
+            document.getElementById(
+                "errorMessage"
+            );
+
+
+        // ==========================================
+        // MESSAGE FUNCTIONS
+        // ==========================================
+
+        function showSuccess(message) {
+
+            successMessage.textContent =
+                message;
+
+            successMessage.style.display =
+                "block";
+
+            errorMessage.style.display =
+                "none";
+
+        }
+
+
+        function showError(message) {
+
+            errorMessage.textContent =
+                message;
+
+            errorMessage.style.display =
+                "block";
+
+            successMessage.style.display =
+                "none";
+
+        }
+
+
+        // ==========================================
+        // LOAD HOSTEL COMPLAINTS
+        // ==========================================
+
+        function loadComplaints() {
+
+            complaintsList.innerHTML =
+                '<div class="loading">Loading complaints...</div>';
+
+
+            fetch(
+                `/api/hostel-complaints/${student.campus_id}`
+            )
+
+            .then(response =>
+                response.json()
+            )
+
+            .then(data => {
+
+                if (
+                    !data.success ||
+                    !data.complaints
+                ) {
+
+                    complaintsList.innerHTML =
+                        '<div class="empty-state">Unable to load complaints.</div>';
+
+                    return;
+
+                }
+
+
+                if (
+                    data.complaints.length === 0
+                ) {
+
+                    complaintsList.innerHTML = `
+
+                        <div class="empty-state">
+
+                            <div style="font-size:38px;">
+                                🏠
+                            </div>
+
+                            <p>
+                                No hostel complaints submitted yet.
+                            </p>
+
+                            <small>
+                                Your complaints will appear here.
+                            </small>
+
+                        </div>
+
+                    `;
+
+                    return;
+
+                }
+
+
+                complaintsList.innerHTML = "";
+
+
+                data.complaints.forEach(
+                    complaint => {
+
+                        let statusClass =
+                            "status-pending";
+
+
+                        if (
+                            complaint.status ===
+                            "In Progress"
+                        ) {
+
+                            statusClass =
+                                "status-progress";
+
+                        }
+
+
+                        if (
+                            complaint.status ===
+                            "Resolved"
+                        ) {
+
+                            statusClass =
+                                "status-resolved";
+
+                        }
+
+
+                        const item =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        item.className =
+                            "complaint-item";
+
+
+                        item.innerHTML = `
+
+                            <div class="complaint-top">
+
+                                <span class="complaint-category">
+
+                                    🏠
+                                    ${escapeHtml(complaint.category)}
+
+                                </span>
+
+                                <span class="status ${statusClass}">
+
+                                    ${escapeHtml(complaint.status)}
+
+                                </span>
+
+                            </div>
+
+
+                            <div class="complaint-description">
+
+                                ${escapeHtml(complaint.description)}
+
+                            </div>
+
+
+                            <div class="complaint-meta">
+
+                                <span class="meta-tag">
+
+                                    🚪 Room:
+                                    ${escapeHtml(complaint.room_no)}
+
+                                </span>
+
+
+                                <span class="meta-tag">
+
+                                    #${complaint.id}
+
+                                </span>
+
+                            </div>
+
+                        `;
+
+
+                        complaintsList.appendChild(
+                            item
+                        );
+
+                    }
+                );
+
+            })
+
+            .catch(error => {
+
+                console.error(
+                    "Hostel complaint loading error:",
+                    error
+                );
+
+                complaintsList.innerHTML = `
+
+                    <div class="empty-state">
+
+                        <div style="font-size:38px;">
+                            ⚠️
+                        </div>
+
+                        Unable to connect to server.
+
+                    </div>
+
+                `;
+
+            });
+
+        }
+
+
+        // ==========================================
+        // SUBMIT HOSTEL COMPLAINT
+        // ==========================================
+
+        form.addEventListener(
+            "submit",
+            function(event) {
+
+                event.preventDefault();
+
+
+                successMessage.style.display =
+                    "none";
+
+                errorMessage.style.display =
+                    "none";
+
+
+                const category =
+                    document.getElementById(
+                        "category"
+                    ).value;
+
+
+                const roomNo =
+                    document.getElementById(
+                        "roomNo"
+                    ).value.trim();
+
+
+                const description =
+                    document.getElementById(
+                        "description"
+                    ).value.trim();
+
+
+                if (
+                    !category ||
+                    !roomNo ||
+                    !description
+                ) {
+
+                    showError(
+                        "Please fill all required fields."
+                    );
+
+                    return;
+
+                }
+
+
+                submitBtn.disabled =
+                    true;
+
+                submitBtn.textContent =
+                    "Submitting...";
+
+
+                const complaintData = {
+
+                    campus_id:
+                        student.campus_id,
+
+                    category:
+                        category,
+
+                    description:
+                        description,
+
+                    room_no:
+                        roomNo
+
+                };
+
+
+                fetch(
+                    "/api/hostel-complaints",
+                    {
+
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body:
+                            JSON.stringify(
+                                complaintData
+                            )
+
+                    }
+                )
+
+                .then(response =>
+                    response.json()
+                )
+
+                .then(data => {
+
+                    if (data.success) {
+
+                        showSuccess(
+                            `Hostel complaint submitted successfully! Complaint ID: #${data.complaint_id}`
+                        );
+
+
+                        form.reset();
+
+
+                        loadComplaints();
+
+                    }
+
+                    else {
+
+                        showError(
+                            data.message ||
+                            "Unable to submit hostel complaint."
+                        );
+
+                    }
+
+                })
+
+                .catch(error => {
+
+                    console.error(
+                        "Hostel complaint submit error:",
+                        error
+                    );
+
+                    showError(
+                        "Server connection failed. Please try again."
+                    );
+
+                })
+
+                .finally(() => {
+
+                    submitBtn.disabled =
+                        false;
+
+                    submitBtn.textContent =
+                        "Submit Hostel Complaint 🚀";
+
+                });
+
+            }
+        );
+
+
+        // ==========================================
+        // HTML SAFETY
+        // ==========================================
+
+        function escapeHtml(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+
+                return "";
+
+            }
+
+
+            return String(value)
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+        // ==========================================
+        // INITIAL LOAD
+        // ==========================================
+
+        loadComplaints();
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,2516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard | SGI Smart Campus 360</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        /* ==========================================
+           ADMIN PAGE
+        ========================================== */
+
+        .admin-page {
+            max-width: 1250px;
+            margin: auto;
+            padding: 40px 20px 60px;
+        }
+
+        .admin-header {
+            margin-bottom: 30px;
+        }
+
+        .admin-header h1 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .admin-header p {
+            color: #8290a5;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 25px;
+            padding: 10px 18px;
+
+            border: 1px solid rgba(0, 212, 255, 0.25);
+            border-radius: 10px;
+
+            color: #00d4ff;
+            text-decoration: none;
+
+            background: rgba(0, 212, 255, 0.06);
+        }
+
+        .back-btn:hover {
+            background: rgba(0, 212, 255, 0.12);
+        }
+
+
+        /* ==========================================
+           STATS
+        ========================================== */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            border-radius: 17px;
+            padding: 22px;
+        }
+
+        .stat-card .icon {
+            font-size: 25px;
+            margin-bottom: 12px;
+        }
+
+        .stat-card h3 {
+            font-size: 30px;
+            margin: 0 0 5px;
+        }
+
+        .stat-card p {
+            color: #8290a5;
+            margin: 0;
+            font-size: 13px;
+        }
+
+
+        /* ==========================================
+           COMPLAINT TABLE
+        ========================================== */
+
+        .table-card {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(148, 163, 184, 0.12);
+            border-radius: 18px;
+            padding: 25px;
+            overflow: hidden;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .table-header h2 {
+            margin: 0;
+            font-size: 21px;
+        }
+
+        .refresh-btn {
+            padding: 9px 15px;
+            border-radius: 9px;
+
+            border: 1px solid rgba(0, 212, 255, 0.25);
+            background: rgba(0, 212, 255, 0.07);
+
+            color: #00d4ff;
+            cursor: pointer;
+        }
+
+        .refresh-btn:hover {
+            background: rgba(0, 212, 255, 0.14);
+        }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .table-wrapper table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        .table-wrapper th {
+            text-align: left;
+            padding: 13px 12px;
+
+            color: #8290a5;
+            font-size: 12px;
+            text-transform: uppercase;
+
+            border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        }
+
+        .table-wrapper td {
+            padding: 15px 12px;
+
+            border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+
+            color: #d7deea;
+            font-size: 13px;
+            vertical-align: middle;
+        }
+
+        .student-id {
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+
+        /* ==========================================
+           PRIORITY
+        ========================================== */
+
+        .priority {
+            display: inline-block;
+            padding: 5px 9px;
+
+            border-radius: 7px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .priority-normal {
+            background: rgba(148, 163, 184, 0.1);
+            color: #94a3b8;
+        }
+
+        .priority-high {
+            background: rgba(245, 158, 11, 0.12);
+            color: #fbbf24;
+        }
+
+        .priority-urgent {
+            background: rgba(239, 68, 68, 0.12);
+            color: #f87171;
+        }
+
+
+        /* ==========================================
+           STATUS
+        ========================================== */
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .pending {
+            background: rgba(245, 158, 11, 0.12);
+            color: #fbbf24;
+        }
+
+        .progress {
+            background: rgba(59, 130, 246, 0.12);
+            color: #60a5fa;
+        }
+
+        .resolved {
+            background: rgba(34, 197, 94, 0.12);
+            color: #4ade80;
+        }
+
+        .status-select {
+            padding: 7px 9px;
+
+            border-radius: 8px;
+            border: 1px solid rgba(148, 163, 184, 0.15);
+
+            background: #0f172a;
+            color: #e2e8f0;
+
+            cursor: pointer;
+            outline: none;
+        }
+
+        .status-select:focus {
+            border-color: #00d4ff;
+        }
+
+
+        /* ==========================================
+           GENERAL STATES
+        ========================================== */
+
+        .empty-state,
+        .loading {
+            text-align: center;
+            padding: 45px 15px;
+            color: #718096;
+        }
+
+        .message {
+            display: none;
+
+            padding: 13px 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+
+            font-size: 13px;
+        }
+
+        .success {
+            display: block;
+
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.25);
+
+            color: #4ade80;
+        }
+
+        .error {
+            display: block;
+
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+
+            color: #f87171;
+        }
+
+
+        /* ==========================================
+           NOTICE MANAGEMENT
+        ========================================== */
+
+        .notice-admin-section {
+            margin-top: 40px;
+        }
+
+        .notice-admin-section .section-title {
+            margin-bottom: 20px;
+        }
+
+        .notice-admin-section .section-title h2 {
+            color: #00d9ff;
+            margin-bottom: 8px;
+        }
+
+        .notice-admin-section .section-title p {
+            color: #9fb0c3;
+        }
+
+        .notice-form-card {
+            background: rgba(255, 255, 255, 0.05);
+
+            border: 1px solid rgba(0, 217, 255, 0.18);
+            border-radius: 18px;
+
+            padding: 25px;
+
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #c9d5e2;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            box-sizing: border-box;
+
+            padding: 13px 15px;
+
+            border-radius: 10px;
+            border: 1px solid rgba(0, 217, 255, 0.2);
+
+            background: rgba(0, 0, 0, 0.2);
+            color: #ffffff;
+
+            outline: none;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #00d9ff;
+        }
+
+        .publish-notice-btn {
+            border: none;
+            border-radius: 10px;
+
+            padding: 12px 20px;
+
+            background: #00d9ff;
+            color: #06101d;
+
+            font-weight: bold;
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .publish-notice-btn:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        #noticeMessageBox {
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+
+        /* ==========================================
+           STUDENT MANAGEMENT
+        ========================================== */
+
+        .student-management-section {
+            margin-top: 40px;
+
+            padding: 28px;
+
+            border: 1px solid rgba(0, 217, 255, 0.22);
+            border-radius: 18px;
+
+            background: rgba(5, 18, 30, 0.72);
+
+            box-shadow:
+                0 0 25px rgba(0, 217, 255, 0.08);
+        }
+
+        .student-management-section .section-header {
+            display: flex;
+
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 20px;
+            margin-bottom: 22px;
+        }
+
+        .student-management-section .section-header h2 {
+            margin: 0 0 6px;
+
+            color: #00d9ff;
+            font-size: 24px;
+        }
+
+        .student-management-section .section-header p {
+            margin: 0;
+            color: #9fb0c3;
+        }
+
+        .student-count-box {
+            min-width: 130px;
+
+            padding: 14px 20px;
+
+            text-align: center;
+
+            border: 1px solid rgba(0, 217, 255, 0.35);
+            border-radius: 12px;
+
+            background: rgba(0, 217, 255, 0.06);
+        }
+
+        .student-count-box span {
+            display: block;
+
+            color: #9fb0c3;
+            font-size: 12px;
+
+            margin-bottom: 5px;
+        }
+
+        .student-count-box strong {
+            display: block;
+
+            color: #00d9ff;
+            font-size: 28px;
+        }
+
+        .student-search-box {
+            margin-bottom: 20px;
+        }
+
+        .student-search-box input {
+            width: 100%;
+            box-sizing: border-box;
+
+            padding: 14px 16px;
+
+            border: 1px solid rgba(0, 217, 255, 0.25);
+            border-radius: 10px;
+
+            background: rgba(0, 0, 0, 0.25);
+            color: #ffffff;
+
+            outline: none;
+            font-size: 14px;
+        }
+
+        .student-search-box input:focus {
+            border-color: #00d9ff;
+
+            box-shadow:
+                0 0 14px rgba(0, 217, 255, 0.15);
+        }
+
+        .student-table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .student-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        .student-table th {
+            padding: 14px 12px;
+
+            text-align: left;
+
+            color: #00d9ff;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+
+            border-bottom: 1px solid rgba(0, 217, 255, 0.25);
+
+            background: rgba(0, 217, 255, 0.04);
+        }
+
+        .student-table td {
+            padding: 14px 12px;
+
+            color: #d8e7ef;
+            font-size: 14px;
+
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .student-table tbody tr {
+            transition: 0.25s;
+        }
+
+        .student-table tbody tr:hover {
+            background: rgba(0, 217, 255, 0.05);
+        }
+
+        .student-table td:nth-child(2) {
+            color: #00d9ff;
+            font-weight: 700;
+        }
+
+        .student-table td:nth-child(6) {
+            color: #50fa7b;
+            font-weight: 700;
+        }
+
+        .loading-students {
+            text-align: center !important;
+
+            color: #9fb0c3 !important;
+
+            padding: 25px !important;
+        }
+
+
+        /* ==========================================
+           STUDENT PASSWORD
+        ========================================== */
+
+        .student-password {
+            display: inline-block;
+
+            min-width: 60px;
+
+            color: #ffffff;
+            font-family: monospace;
+            letter-spacing: 1px;
+        }
+
+        .password-toggle-btn {
+            margin-left: 7px;
+
+            padding: 5px 8px;
+
+            border: 1px solid rgba(0, 217, 255, 0.25);
+            border-radius: 7px;
+
+            background: rgba(0, 217, 255, 0.07);
+            color: #00d9ff;
+
+            cursor: pointer;
+        }
+
+        .password-toggle-btn:hover {
+            background: rgba(0, 217, 255, 0.15);
+        }
+
+
+        /* ==========================================
+           DELETE STUDENT
+        ========================================== */
+
+        .delete-student-btn {
+            padding: 8px 12px;
+
+            border: 1px solid rgba(255, 80, 80, 0.35);
+            border-radius: 8px;
+
+            background: rgba(255, 80, 80, 0.08);
+            color: #ff7b7b;
+
+            font-size: 12px;
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+        .delete-student-btn:hover {
+            background: rgba(255, 80, 80, 0.18);
+
+            border-color: #ff7b7b;
+
+            transform: translateY(-1px);
+        }
+
+
+        /* ==========================================
+           ATTENDANCE MANAGEMENT
+        ========================================== */
+
+        .attendance-admin-section {
+            margin-top: 40px;
+        }
+
+        .attendance-admin-section .section-title {
+            margin-bottom: 20px;
+        }
+
+        .attendance-admin-section .section-title h2 {
+            color: #00d9ff;
+            margin-bottom: 8px;
+        }
+
+        .attendance-admin-section .section-title p {
+            color: #9fb0c3;
+        }
+
+        .attendance-form-card {
+            background: rgba(255, 255, 255, 0.05);
+
+            border: 1px solid rgba(0, 217, 255, 0.18);
+            border-radius: 18px;
+
+            padding: 25px;
+
+            backdrop-filter: blur(10px);
+        }
+
+        .attendance-form-card .form-group {
+            margin-bottom: 18px;
+        }
+
+        .attendance-form-card label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #c9d5e2;
+            font-weight: 600;
+        }
+
+        .attendance-form-card input {
+            width: 100%;
+            box-sizing: border-box;
+
+            padding: 13px 15px;
+
+            border-radius: 10px;
+
+            border: 1px solid rgba(0, 217, 255, 0.2);
+
+            background: rgba(0, 0, 0, 0.2);
+            color: #ffffff;
+
+            outline: none;
+            font-family: inherit;
+        }
+
+        .attendance-form-card input:focus {
+            border-color: #00d9ff;
+        }
+
+        .attendance-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .attendance-buttons button {
+            border: none;
+            border-radius: 10px;
+
+            padding: 12px 20px;
+
+            font-weight: bold;
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+        .attendance-present-btn {
+            background: #50fa7b;
+            color: #06101d;
+        }
+
+        .attendance-absent-btn {
+            background: #ff7b7b;
+            color: #06101d;
+        }
+
+        .attendance-buttons button:hover {
+            transform: translateY(-2px);
+            opacity: 0.9;
+        }
+
+        #attendanceMessageBox {
+            margin-top: 15px;
+            font-weight: 600;
+        }
+
+
+        /* ==========================================
+           MOBILE
+        ========================================== */
+
+        @media (max-width: 900px) {
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 700px) {
+
+            .student-management-section {
+                padding: 20px 15px;
+            }
+
+            .student-management-section .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .student-count-box {
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            .attendance-buttons {
+                flex-direction: column;
+            }
+
+            .attendance-buttons button {
+                width: 100%;
+            }
+
+        }
+
+        @media (max-width: 550px) {
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-header h1 {
+                font-size: 27px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==========================================
+         NAVBAR
+    ========================================== -->
+
+    <nav class="navbar">
+
+        <div class="nav-left">
+
+            <strong>SGI</strong>
+
+            <span>
+                Smart Campus 360
+            </span>
+
+        </div>
+
+
+        <div class="profile-info">
+
+            <strong>
+                Administrator
+            </strong>
+
+            <span>
+                Admin Control Panel
+            </span>
+
+        </div>
+
+    </nav>
+
+
+    <!-- ==========================================
+         MAIN ADMIN PAGE
+    ========================================== -->
+
+    <main class="admin-page">
+
+
+        <a
+            href="dashboard.html"
+            class="back-btn"
+        >
+            ← Student Dashboard
+        </a>
+
+
+        <div class="admin-header">
+
+            <h1>
+                Admin Dashboard 🛡️
+            </h1>
+
+            <p>
+                Monitor and manage campus complaints from one central control panel.
+            </p>
+
+        </div>
+
+
+        <!-- ==========================================
+             STATISTICS
+        ========================================== -->
+
+        <section class="stats-grid">
+
+
+            <div class="stat-card">
+
+                <div class="icon">
+                    📊
+                </div>
+
+                <h3 id="totalComplaints">
+                    00
+                </h3>
+
+                <p>
+                    Total Complaints
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="icon">
+                    ⏳
+                </div>
+
+                <h3 id="pendingComplaints">
+                    00
+                </h3>
+
+                <p>
+                    Pending
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="icon">
+                    🔧
+                </div>
+
+                <h3 id="progressComplaints">
+                    00
+                </h3>
+
+                <p>
+                    In Progress
+                </p>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="icon">
+                    ✅
+                </div>
+
+                <h3 id="resolvedComplaints">
+                    00
+                </h3>
+
+                <p>
+                    Resolved
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             ALL COMPLAINTS
+        ========================================== -->
+
+        <section class="table-card">
+
+
+            <div class="table-header">
+
+                <h2>
+                    All Campus Complaints
+                </h2>
+
+                <button
+                    type="button"
+                    class="refresh-btn"
+                    onclick="loadComplaints()"
+                >
+                    ↻ Refresh
+                </button>
+
+            </div>
+
+
+            <div
+                id="adminMessage"
+                class="message"
+            ></div>
+
+
+            <div
+                id="complaintsContainer"
+                class="loading"
+            >
+                Loading complaints...
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             CAMPUS NOTICE MANAGEMENT
+        ========================================== -->
+
+        <section class="notice-admin-section">
+
+
+            <div class="section-title">
+
+                <h2>
+                    📢 Campus Notice Management
+                </h2>
+
+                <p>
+                    Publish important announcements for students.
+                </p>
+
+            </div>
+
+
+            <div class="notice-form-card">
+
+
+                <div class="form-group">
+
+                    <label for="noticeTitle">
+                        Notice Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="noticeTitle"
+                        placeholder="Enter notice title"
+                        maxlength="150"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="noticeMessage">
+                        Notice Message
+                    </label>
+
+                    <textarea
+                        id="noticeMessage"
+                        placeholder="Enter notice details..."
+                        rows="5"
+                        maxlength="1000"
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    onclick="publishNotice()"
+                    class="publish-notice-btn"
+                >
+                    📢 Publish Notice
+                </button>
+
+
+                <div id="noticeMessageBox"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             STUDENT MANAGEMENT
+        ========================================== -->
+
+        <section class="student-management-section">
+
+
+            <div class="section-header">
+
+                <div>
+
+                    <h2>
+                        🎓 Student Management
+                    </h2>
+
+                    <p>
+                        View and manage registered SGI students.
+                    </p>
+
+                </div>
+
+
+                <div class="student-count-box">
+
+                    <span>
+                        Total Students
+                    </span>
+
+                    <strong id="totalStudents">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="student-search-box">
+
+                <input
+                    type="text"
+                    id="studentSearch"
+                    placeholder="🔍 Search by Name, Campus ID or Branch..."
+                    oninput="filterStudents()"
+                >
+
+            </div>
+
+
+            <div class="student-table-wrapper">
+
+                <table class="student-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                #
+                            </th>
+
+                            <th>
+                                Campus ID
+                            </th>
+
+                            <th>
+                                Student Name
+                            </th>
+
+                            <th>
+                                Branch
+                            </th>
+
+                            <th>
+                                Semester
+                            </th>
+
+                            <th>
+                                Attendance
+                            </th>
+
+                            <th>
+                                Password
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="studentTableBody">
+
+                        <tr>
+
+                            <td
+                                colspan="8"
+                                class="loading-students"
+                            >
+                                Loading students...
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==========================================
+             ATTENDANCE MANAGEMENT
+        ========================================== -->
+
+        <section class="attendance-admin-section">
+
+
+            <div class="section-title">
+
+                <h2>
+                    📋 Attendance Management
+                </h2>
+
+                <p>
+                    Mark daily attendance for students.
+                </p>
+
+            </div>
+
+
+            <div class="attendance-form-card">
+
+
+                <div class="form-group">
+
+                    <label for="attendanceCampusId">
+                        Student Campus ID
+                    </label>
+
+                    <input
+                        type="text"
+                        id="attendanceCampusId"
+                        placeholder="Example: SGI001"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="attendanceDate">
+                        Attendance Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="attendanceDate"
+                    >
+
+                </div>
+
+
+                <div class="attendance-buttons">
+
+                    <button
+                        type="button"
+                        class="attendance-present-btn"
+                        onclick="markAttendance('Present')"
+                    >
+                        ✅ Present
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="attendance-absent-btn"
+                        onclick="markAttendance('Absent')"
+                    >
+                        ❌ Absent
+                    </button>
+
+                </div>
+
+
+                <div id="attendanceMessageBox"></div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- ==========================================
+         JAVASCRIPT
+    ========================================== -->
+
+    <script>
+
+
+        /* ==========================================
+           ELEMENTS
+        ========================================== */
+
+        const totalElement =
+            document.getElementById(
+                "totalComplaints"
+            );
+
+        const pendingElement =
+            document.getElementById(
+                "pendingComplaints"
+            );
+
+        const progressElement =
+            document.getElementById(
+                "progressComplaints"
+            );
+
+        const resolvedElement =
+            document.getElementById(
+                "resolvedComplaints"
+            );
+
+        const container =
+            document.getElementById(
+                "complaintsContainer"
+            );
+
+        const message =
+            document.getElementById(
+                "adminMessage"
+            );
+
+
+        /* ==========================================
+           LOAD ALL COMPLAINTS
+        ========================================== */
+
+        async function loadComplaints() {
+
+            container.innerHTML =
+                '<div class="loading">Loading complaints...</div>';
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/admin/complaints"
+                    );
+
+                const data =
+                    await response.json();
+
+
+                if (!data.success) {
+
+                    container.innerHTML =
+                        '<div class="empty-state">Unable to load complaints.</div>';
+
+                    return;
+                }
+
+
+                const complaints =
+                    data.complaints || [];
+
+
+                /* ======================================
+                   CALCULATE STATISTICS
+                ====================================== */
+
+                const total =
+                    complaints.length;
+
+
+                const pending =
+                    complaints.filter(
+                        item =>
+                            item.status === "Pending"
+                    ).length;
+
+
+                const progress =
+                    complaints.filter(
+                        item =>
+                            item.status === "In Progress"
+                    ).length;
+
+
+                const resolved =
+                    complaints.filter(
+                        item =>
+                            item.status === "Resolved"
+                    ).length;
+
+
+                totalElement.textContent =
+                    String(total).padStart(2, "0");
+
+
+                pendingElement.textContent =
+                    String(pending).padStart(2, "0");
+
+
+                progressElement.textContent =
+                    String(progress).padStart(2, "0");
+
+
+                resolvedElement.textContent =
+                    String(resolved).padStart(2, "0");
+
+
+                /* ======================================
+                   NO COMPLAINTS
+                ====================================== */
+
+                if (complaints.length === 0) {
+
+                    container.innerHTML = `
+
+                        <div class="empty-state">
+
+                            <div style="font-size:38px;">
+                                📭
+                            </div>
+
+                            <p>
+                                No complaints available.
+                            </p>
+
+                        </div>
+
+                    `;
+
+                    return;
+                }
+
+
+                /* ======================================
+                   CREATE COMPLAINT TABLE
+                ====================================== */
+
+                let tableHTML = `
+
+                    <div class="table-wrapper">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>ID</th>
+
+                                    <th>Campus ID</th>
+
+                                    <th>Category</th>
+
+                                    <th>Description</th>
+
+                                    <th>Location</th>
+
+                                    <th>Priority</th>
+
+                                    <th>Status</th>
+
+                                    <th>Update</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                `;
+
+
+                complaints.forEach(
+                    complaint => {
+
+
+                        /* ==================================
+                           PRIORITY CLASS
+                        ================================== */
+
+                        let priorityClass =
+                            "priority-normal";
+
+
+                        if (
+                            complaint.priority === "High"
+                        ) {
+
+                            priorityClass =
+                                "priority-high";
+
+                        }
+
+
+                        if (
+                            complaint.priority === "Urgent"
+                        ) {
+
+                            priorityClass =
+                                "priority-urgent";
+
+                        }
+
+
+                        /* ==================================
+                           STATUS CLASS
+                        ================================== */
+
+                        let statusClass =
+                            "pending";
+
+
+                        if (
+                            complaint.status === "In Progress"
+                        ) {
+
+                            statusClass =
+                                "progress";
+
+                        }
+
+
+                        if (
+                            complaint.status === "Resolved"
+                        ) {
+
+                            statusClass =
+                                "resolved";
+
+                        }
+
+
+                        const complaintType =
+                            String(
+                                complaint.complaint_type ||
+                                "Campus"
+                            );
+
+
+                        tableHTML += `
+
+                            <tr>
+
+                                <td>
+                                    #${escapeHtml(complaint.id)}
+                                </td>
+
+                                <td class="student-id">
+                                    ${escapeHtml(complaint.campus_id)}
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(complaint.category)}
+                                </td>
+
+                                <td style="max-width:240px;">
+                                    ${escapeHtml(complaint.description)}
+                                </td>
+
+                                <td>
+                                    ${escapeHtml(
+                                        complaint.location ||
+                                        "Not specified"
+                                    )}
+                                </td>
+
+                                <td>
+
+                                    <span
+                                        class="priority ${priorityClass}"
+                                    >
+                                        ${escapeHtml(
+                                            complaint.priority ||
+                                            "Normal"
+                                        )}
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <span
+                                        class="status-badge ${statusClass}"
+                                    >
+                                        ${escapeHtml(
+                                            complaint.status
+                                        )}
+                                    </span>
+
+                                </td>
+
+                                <td>
+
+                                    <select
+                                        class="status-select"
+                                        onchange="updateStatus(
+                                            ${Number(complaint.id)},
+                                            this.value,
+                                            '${complaintType}'
+                                        )"
+                                    >
+
+                                        <option
+                                            value="Pending"
+                                            ${complaint.status === "Pending"
+                                                ? "selected"
+                                                : ""}
+                                        >
+                                            Pending
+                                        </option>
+
+
+                                        <option
+                                            value="In Progress"
+                                            ${complaint.status === "In Progress"
+                                                ? "selected"
+                                                : ""}
+                                        >
+                                            In Progress
+                                        </option>
+
+
+                                        <option
+                                            value="Resolved"
+                                            ${complaint.status === "Resolved"
+                                                ? "selected"
+                                                : ""}
+                                        >
+                                            Resolved
+                                        </option>
+
+                                    </select>
+
+                                </td>
+
+                            </tr>
+
+                        `;
+
+                    }
+                );
+
+
+                tableHTML += `
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                `;
+
+
+                container.innerHTML =
+                    tableHTML;
+
+
+            } catch (error) {
+
+                console.error(
+                    "Admin complaint error:",
+                    error
+                );
+
+
+                container.innerHTML = `
+
+                    <div class="empty-state">
+
+                        <div style="font-size:38px;">
+                            ⚠️
+                        </div>
+
+                        <p>
+                            Unable to connect to server.
+                        </p>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        /* ==========================================
+           UPDATE COMPLAINT STATUS
+        ========================================== */
+
+        async function updateStatus(
+            complaintId,
+            newStatus,
+            complaintType = "Campus"
+        ) {
+
+
+            let apiUrl =
+                `/api/admin/complaints/${complaintId}`;
+
+
+            if (
+                complaintType === "Hostel"
+            ) {
+
+                apiUrl =
+                    `/api/admin/hostel-complaints/${complaintId}`;
+
+            }
+
+
+            if (
+                complaintType === "Lab"
+            ) {
+
+                apiUrl =
+                    `/api/admin/lab-reports/${complaintId}`;
+
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        apiUrl,
+                        {
+                            method: "PUT",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                status: newStatus
+                            })
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (data.success) {
+
+                    showMessage(
+                        "Complaint status updated successfully.",
+                        "success"
+                    );
+
+
+                    loadComplaints();
+
+
+                } else {
+
+                    showMessage(
+                        data.message ||
+                        "Unable to update status.",
+                        "error"
+                    );
+
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "Status update error:",
+                    error
+                );
+
+
+                showMessage(
+                    "Server connection failed.",
+                    "error"
+                );
+
+            }
+
+        }
+
+
+        /* ==========================================
+           ADMIN MESSAGE
+        ========================================== */
+
+        function showMessage(
+            text,
+            type
+        ) {
+
+            message.textContent =
+                text;
+
+
+            message.className =
+                "message " + type;
+
+
+            setTimeout(
+                () => {
+
+                    message.className =
+                        "message";
+
+                },
+                3000
+            );
+
+        }
+
+
+        /* ==========================================
+           HTML SAFETY
+        ========================================== */
+
+        function escapeHtml(value) {
+
+            if (
+                value === null ||
+                value === undefined
+            ) {
+
+                return "";
+
+            }
+
+
+            return String(value)
+
+                .replace(
+                    /&/g,
+                    "&amp;"
+                )
+
+                .replace(
+                    /</g,
+                    "&lt;"
+                )
+
+                .replace(
+                    />/g,
+                    "&gt;"
+                )
+
+                .replace(
+                    /"/g,
+                    "&quot;"
+                )
+
+                .replace(
+                    /'/g,
+                    "&#039;"
+                );
+
+        }
+
+
+        /* ==========================================
+           PUBLISH CAMPUS NOTICE
+        ========================================== */
+
+        async function publishNotice() {
+
+            const title =
+                document
+                    .querySelector("#noticeTitle")
+                    .value
+                    .trim();
+
+
+            const noticeMessage =
+                document
+                    .querySelector("#noticeMessage")
+                    .value
+                    .trim();
+
+
+            const messageBox =
+                document.querySelector(
+                    "#noticeMessageBox"
+                );
+
+
+            if (
+                !title ||
+                !noticeMessage
+            ) {
+
+                messageBox.textContent =
+                    "⚠️ Please enter both title and message.";
+
+                messageBox.style.color =
+                    "#ffb86c";
+
+                return;
+            }
+
+
+            messageBox.textContent =
+                "Publishing notice...";
+
+            messageBox.style.color =
+                "#9fb0c3";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/admin/notices",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                title: title,
+                                message: noticeMessage
+                            })
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (data.success) {
+
+                    messageBox.textContent =
+                        "✅ Notice published successfully!";
+
+                    messageBox.style.color =
+                        "#50fa7b";
+
+
+                    document.querySelector(
+                        "#noticeTitle"
+                    ).value = "";
+
+
+                    document.querySelector(
+                        "#noticeMessage"
+                    ).value = "";
+
+
+                } else {
+
+                    messageBox.textContent =
+                        "❌ " +
+                        (
+                            data.message ||
+                            "Unable to publish notice."
+                        );
+
+                    messageBox.style.color =
+                        "#ff7b7b";
+
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "Notice publish error:",
+                    error
+                );
+
+
+                messageBox.textContent =
+                    "❌ Unable to connect to server.";
+
+                messageBox.style.color =
+                    "#ff7b7b";
+
+            }
+
+        }
+
+
+        /* ==========================================
+           MARK ATTENDANCE
+        ========================================== */
+
+        async function markAttendance(
+            status
+        ) {
+
+            const campusId =
+                document
+                    .querySelector(
+                        "#attendanceCampusId"
+                    )
+                    .value
+                    .trim();
+
+
+            const attendanceDate =
+                document.querySelector(
+                    "#attendanceDate"
+                ).value;
+
+
+            const messageBox =
+                document.querySelector(
+                    "#attendanceMessageBox"
+                );
+
+
+            if (
+                !campusId ||
+                !attendanceDate
+            ) {
+
+                messageBox.textContent =
+                    "⚠️ Please enter Campus ID and attendance date.";
+
+                messageBox.style.color =
+                    "#ffb86c";
+
+                return;
+            }
+
+
+            messageBox.textContent =
+                "Saving attendance...";
+
+            messageBox.style.color =
+                "#9fb0c3";
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/admin/attendance",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body: JSON.stringify({
+                                campus_id:
+                                    campusId,
+
+                                attendance_date:
+                                    attendanceDate,
+
+                                status:
+                                    status
+                            })
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (data.success) {
+
+                    messageBox.textContent =
+                        "✅ Attendance marked as " +
+                        status +
+                        ".";
+
+                    messageBox.style.color =
+                        "#50fa7b";
+
+
+                } else {
+
+                    messageBox.textContent =
+                        "❌ " +
+                        (
+                            data.message ||
+                            "Unable to mark attendance."
+                        );
+
+                    messageBox.style.color =
+                        "#ff7b7b";
+
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "Attendance error:",
+                    error
+                );
+
+
+                messageBox.textContent =
+                    "❌ Unable to connect to server.";
+
+                messageBox.style.color =
+                    "#ff7b7b";
+
+            }
+
+        }
+
+
+        /* ==========================================
+           STUDENT MANAGEMENT
+        ========================================== */
+
+        let allStudents = [];
+
+
+        /* ==========================================
+           LOAD STUDENTS
+        ========================================== */
+
+        async function loadStudents() {
+
+            const tableBody =
+                document.querySelector(
+                    "#studentTableBody"
+                );
+
+
+            const totalStudents =
+                document.querySelector(
+                    "#totalStudents"
+                );
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/admin/students"
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (!data.success) {
+
+                    tableBody.innerHTML = `
+
+                        <tr>
+
+                            <td
+                                colspan="8"
+                                class="loading-students"
+                            >
+                                ❌ Unable to load students.
+                            </td>
+
+                        </tr>
+
+                    `;
+
+                    return;
+                }
+
+
+                allStudents =
+                    data.students || [];
+
+
+                totalStudents.textContent =
+                    data.total_students ||
+                    0;
+
+
+                renderStudents(
+                    allStudents
+                );
+
+
+            } catch (error) {
+
+                console.error(
+                    "Student loading error:",
+                    error
+                );
+
+
+                tableBody.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="8"
+                            class="loading-students"
+                        >
+                            ❌ Server connection failed.
+                        </td>
+
+                    </tr>
+
+                `;
+
+            }
+
+        }
+
+
+        /* ==========================================
+           RENDER STUDENTS
+        ========================================== */
+
+        function renderStudents(
+            students
+        ) {
+
+            const tableBody =
+                document.querySelector(
+                    "#studentTableBody"
+                );
+
+
+            if (!students.length) {
+
+                tableBody.innerHTML = `
+
+                    <tr>
+
+                        <td
+                            colspan="8"
+                            class="loading-students"
+                        >
+                            No students found.
+                        </td>
+
+                    </tr>
+
+                `;
+
+                return;
+            }
+
+
+            tableBody.innerHTML =
+                students
+                    .map(
+                        (student, index) => `
+
+                        <tr>
+
+
+                            <td>
+                                ${index + 1}
+                            </td>
+
+
+                            <td>
+                                ${escapeHtml(
+                                    student.campus_id
+                                )}
+                            </td>
+
+
+                            <td>
+                                ${escapeHtml(
+                                    student.name
+                                )}
+                            </td>
+
+
+                            <td>
+                                ${escapeHtml(
+                                    student.branch ||
+                                    "-"
+                                )}
+                            </td>
+
+
+                            <td>
+                                ${escapeHtml(
+                                    student.semester ??
+                                    "-"
+                                )}
+                            </td>
+
+
+                            <td>
+                                ${escapeHtml(
+                                    student.attendance ??
+                                    0
+                                )}%
+                            </td>
+
+
+                            <td>
+
+                                <span
+                                    id="password-${student.id}"
+                                    class="student-password"
+                                    data-password="${escapeHtml(
+                                        student.password ||
+                                        ""
+                                    )}"
+                                >
+                                    ••••••
+                                </span>
+
+
+                                <button
+                                    type="button"
+                                    class="password-toggle-btn"
+                                    onclick="toggleStudentPassword(${Number(student.id)})"
+                                    title="Show / Hide Password"
+                                >
+                                    👁️
+                                </button>
+
+                            </td>
+
+
+                            <td>
+
+                                <button
+                                    type="button"
+                                    class="delete-student-btn"
+                                    onclick="deleteStudent(${Number(student.id)})"
+                                >
+                                    🗑️ Delete
+                                </button>
+
+                            </td>
+
+
+                        </tr>
+
+                    `
+                    )
+                    .join("");
+
+        }
+
+
+        /* ==========================================
+           SEARCH STUDENTS
+        ========================================== */
+
+        function filterStudents() {
+
+            const search =
+                document
+                    .querySelector(
+                        "#studentSearch"
+                    )
+                    .value
+                    .trim()
+                    .toLowerCase();
+
+
+            if (!search) {
+
+                renderStudents(
+                    allStudents
+                );
+
+                return;
+            }
+
+
+            const filteredStudents =
+                allStudents.filter(
+                    student => {
+
+                        const name =
+                            String(
+                                student.name ||
+                                ""
+                            )
+                                .toLowerCase();
+
+
+                        const campusId =
+                            String(
+                                student.campus_id ||
+                                ""
+                            )
+                                .toLowerCase();
+
+
+                        const branch =
+                            String(
+                                student.branch ||
+                                ""
+                            )
+                                .toLowerCase();
+
+
+                        return (
+                            name.includes(search) ||
+                            campusId.includes(search) ||
+                            branch.includes(search)
+                        );
+
+                    }
+                );
+
+
+            renderStudents(
+                filteredStudents
+            );
+
+        }
+
+
+        /* ==========================================
+           SHOW / HIDE PASSWORD
+        ========================================== */
+
+        function toggleStudentPassword(
+            studentId
+        ) {
+
+            const passwordElement =
+                document.querySelector(
+                    "#password-" +
+                    studentId
+                );
+
+
+            if (!passwordElement) {
+
+                return;
+            }
+
+
+            const password =
+                passwordElement.dataset.password;
+
+
+            if (
+                passwordElement
+                    .textContent
+                    .trim() ===
+                "••••••"
+            ) {
+
+                passwordElement.textContent =
+                    password;
+
+            } else {
+
+                passwordElement.textContent =
+                    "••••••";
+
+            }
+
+        }
+
+
+        /* ==========================================
+           DELETE STUDENT
+        ========================================== */
+
+        async function deleteStudent(
+            studentId
+        ) {
+
+            const student =
+                allStudents.find(
+                    item =>
+                        Number(item.id) ===
+                        Number(studentId)
+                );
+
+
+            const studentName =
+                student
+                    ? student.name
+                    : "this student";
+
+
+            const confirmed =
+                confirm(
+                    `Are you sure you want to delete ${studentName}?`
+                );
+
+
+            if (!confirmed) {
+
+                return;
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `/api/admin/students/${studentId}`,
+                        {
+                            method: "DELETE"
+                        }
+                    );
+
+
+                const data =
+                    await response.json();
+
+
+                if (data.success) {
+
+
+                    allStudents =
+                        allStudents.filter(
+                            item =>
+                                Number(item.id) !==
+                                Number(studentId)
+                        );
+
+
+                    document.querySelector(
+                        "#totalStudents"
+                    ).textContent =
+                        allStudents.length;
+
+
+                    filterStudents();
+
+
+                    showMessage(
+                        "Student deleted successfully.",
+                        "success"
+                    );
+
+
+                } else {
+
+                    showMessage(
+                        data.message ||
+                        "Unable to delete student.",
+                        "error"
+                    );
+
+                }
+
+
+            } catch (error) {
+
+                console.error(
+                    "Delete student error:",
+                    error
+                );
+
+
+                showMessage(
+                    "Server connection failed.",
+                    "error"
+                );
+
+            }
+
+        }
+
+
+        /* ==========================================
+           INITIAL LOAD
+        ========================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+                loadComplaints();
+
+                loadStudents();
+
+            }
+        );
+
+
+    </script>
+
+
+</body>
+
+</html>

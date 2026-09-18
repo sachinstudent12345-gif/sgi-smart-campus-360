@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Campus Notices | SGI Smart Campus 360</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #07111f;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+
+        nav {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 7%;
+            background: rgba(7, 17, 31, 0.95);
+            border-bottom: 1px solid rgba(0, 200, 255, 0.2);
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            color: #00d9ff;
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: #ffffff;
+            border: 1px solid rgba(0, 217, 255, 0.4);
+            padding: 10px 18px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(0, 217, 255, 0.12);
+            border-color: #00d9ff;
+        }
+
+        .container {
+            width: 86%;
+            max-width: 1100px;
+            margin: 50px auto;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 34px;
+            margin-bottom: 10px;
+        }
+
+        .header h1 span {
+            color: #00d9ff;
+        }
+
+        .header p {
+            color: #9fb0c3;
+        }
+
+        .notices {
+            display: grid;
+            gap: 18px;
+        }
+
+        .notice-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 217, 255, 0.16);
+            border-radius: 18px;
+            padding: 24px;
+            backdrop-filter: blur(10px);
+            transition: 0.3s;
+        }
+
+        .notice-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(0, 217, 255, 0.5);
+        }
+
+        .notice-top {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .notice-title {
+            font-size: 20px;
+            color: #ffffff;
+        }
+
+        .notice-badge {
+            background: rgba(0, 217, 255, 0.12);
+            color: #00d9ff;
+            border: 1px solid rgba(0, 217, 255, 0.25);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .notice-message {
+            color: #c5d1df;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .notice-date {
+            color: #718398;
+            font-size: 13px;
+        }
+
+        .loading,
+        .empty,
+        .error {
+            text-align: center;
+            padding: 45px 20px;
+            color: #9fb0c3;
+        }
+
+        .error {
+            color: #ff7b7b;
+        }
+
+        @media (max-width: 600px) {
+
+            .container {
+                width: 92%;
+                margin: 35px auto;
+            }
+
+            nav {
+                padding: 0 4%;
+            }
+
+            .header h1 {
+                font-size: 28px;
+            }
+
+            .notice-top {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">SGI • CAMPUS 360</div>
+
+        <a href="dashboard.html" class="back-btn">
+            ← Dashboard
+        </a>
+    </nav>
+
+    <main class="container">
+
+        <section class="header">
+            <h1>📢 Campus <span>Notices</span></h1>
+
+            <p>
+                Stay updated with the latest announcements and important campus information.
+            </p>
+        </section>
+
+        <section id="noticesContainer" class="notices">
+
+            <div class="loading">
+                Loading campus notices...
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        // ==========================================
+        // LOGIN CHECK
+        // ==========================================
+
+        const studentData = localStorage.getItem("student");
+
+        if (!studentData) {
+
+            window.location.href = "/";
+
+        } else {
+
+            loadNotices();
+
+        }
+
+
+        // ==========================================
+        // LOAD CAMPUS NOTICES
+        // ==========================================
+
+        function loadNotices() {
+
+            const container =
+                document.querySelector("#noticesContainer");
+
+            fetch("/api/notices")
+
+                .then(response => response.json())
+
+                .then(data => {
+
+                    if (!data.success) {
+
+                        container.innerHTML = `
+                            <div class="error">
+                                Unable to load campus notices.
+                            </div>
+                        `;
+
+                        return;
+                    }
+
+
+                    if (!data.notices || data.notices.length === 0) {
+
+                        container.innerHTML = `
+                            <div class="empty">
+                                <div style="font-size:40px; margin-bottom:10px;">
+                                    📭
+                                </div>
+
+                                <div style="font-size:18px; margin-bottom:8px;">
+                                    No notices available
+                                </div>
+
+                                <div>
+                                    New campus announcements will appear here.
+                                </div>
+                            </div>
+                        `;
+
+                        return;
+                    }
+
+
+                    container.innerHTML = data.notices.map(notice => {
+
+                        return `
+
+                            <article class="notice-card">
+
+                                <div class="notice-top">
+
+                                    <h2 class="notice-title">
+                                        ${escapeHtml(notice.title)}
+                                    </h2>
+
+                                    <span class="notice-badge">
+                                        📢 Notice
+                                    </span>
+
+                                </div>
+
+                                <p class="notice-message">
+                                    ${escapeHtml(notice.message)}
+                                </p>
+
+                                <div class="notice-date">
+                                    🕒 ${formatDate(notice.created_at)}
+                                </div>
+
+                            </article>
+
+                        `;
+
+                    }).join("");
+
+                })
+
+                .catch(error => {
+
+                    console.error("Notice loading error:", error);
+
+                    container.innerHTML = `
+                        <div class="error">
+                            Unable to connect to server.
+                        </div>
+                    `;
+
+                });
+        }
+
+
+        // ==========================================
+        // HTML ESCAPE
+        // ==========================================
+
+        function escapeHtml(value) {
+
+            const div = document.createElement("div");
+
+            div.textContent = value ?? "";
+
+            return div.innerHTML;
+        }
+
+
+        // ==========================================
+        // FORMAT DATE
+        // ==========================================
+
+        function formatDate(dateString) {
+
+            if (!dateString) {
+                return "Recently";
+            }
+
+            const date = new Date(
+                dateString.replace(" ", "T") + "Z"
+            );
+
+            if (isNaN(date.getTime())) {
+                return dateString;
+            }
+
+            return date.toLocaleString("en-IN", {
+                day: "2-digit",
+                month: "short",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            });
+        }
+
+    </script>
+
+</body>
+
+</html>
