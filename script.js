@@ -108,7 +108,7 @@ async function demoLogin() {
                 JSON.stringify(data.student)
             );
 
-          window.location.href = "/sgi-smart-campus-360/dashboard.html";
+       window.location.href = "/sgi-smart-campus-360/frontend/dashboard.html";
 
         } else {
 
