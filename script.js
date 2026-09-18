@@ -84,7 +84,7 @@ async function demoLogin() {
 
     try {
 
-        const response = await fetch("/api/login", {
+        const response = await fetch("https://sgi-smart-campus-360-api.onrender.com/api/login", {
 
             method: "POST",
 
