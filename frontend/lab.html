@@ -555,9 +555,9 @@
                 '<div class="loading">Loading lab reports...</div>';
 
 
-            fetch(
-                `/api/lab-reports/${student.campus_id}`
-            )
+           fetch(
+    `https://sgi-smart-campus-360-api.onrender.com/api/lab-reports/${student.campus_id}`
+)
 
             .then(response =>
                 response.json()
@@ -795,9 +795,8 @@
 
                 };
 
-
-                fetch(
-                    "/api/lab-reports",
+fetch(
+    "https://sgi-smart-campus-360-api.onrender.com/api/lab-reports",
                     {
 
                         method: "POST",
