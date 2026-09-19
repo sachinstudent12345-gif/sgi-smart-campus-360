@@ -546,9 +546,9 @@
                 '<div class="loading">Loading complaints...</div>';
 
 
-            fetch(
-                `/api/complaints/${student.campus_id}`
-            )
+         fetch(
+    `https://sgi-smart-campus-360-api.onrender.com/api/complaints/${student.campus_id}`
+)
 
             .then(response =>
                 response.json()
