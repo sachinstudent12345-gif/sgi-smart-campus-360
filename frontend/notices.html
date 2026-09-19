@@ -221,8 +221,7 @@
             const container =
                 document.querySelector("#noticesContainer");
 
-            fetch("/api/notices")
-
+            fetch("https://sgi-smart-campus-360-api.onrender.com/api/notices")
                 .then(response => response.json())
 
                 .then(data => {
