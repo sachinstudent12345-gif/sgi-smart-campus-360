@@ -555,9 +555,9 @@
                 '<div class="loading">Loading complaints...</div>';
 
 
-            fetch(
-                `/api/hostel-complaints/${student.campus_id}`
-            )
+           fetch(
+    `https://sgi-smart-campus-360-api.onrender.com/api/hostel-complaints/${student.campus_id}`
+)
 
             .then(response =>
                 response.json()
@@ -806,9 +806,8 @@
 
                 };
 
-
-                fetch(
-                    "/api/hostel-complaints",
+fetch(
+    "https://sgi-smart-campus-360-api.onrender.com/api/hostel-complaints",
                     {
 
                         method: "POST",
